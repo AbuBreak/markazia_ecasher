@@ -6,6 +6,7 @@ class LoginProvider extends ChangeNotifier {
   String password = '';
   String? employeeError;
   String? passwordError;
+  String? accessToken;
 
   final ApiService apiService = ApiService();
   bool isLoading = false;
@@ -69,6 +70,7 @@ class LoginProvider extends ChangeNotifier {
 
       debugPrint('Login API response: $response');
       if (response.success == true) {
+        accessToken = response.accessToken;
         isAuthenticated = true;
         error = null;
         errorTitle = null;
