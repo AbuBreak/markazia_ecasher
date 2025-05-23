@@ -1,0 +1,20 @@
+{
+  "hello": "Hello",
+  "login": "Login",
+  "logout": "Logout",
+  "errorLoadingBranches": "Failed to load branches",
+  "chooseBranch": "Please choose the branch",
+  "back": "Back",
+  "signIn": "Sign In",
+  "empNum": "Employee Number",
+  "enterEmpNum": "Enter employee number",
+  "password": "Password",
+  "enterPassword": "Enter password",
+  "errorLogin": "Login Failed",
+  "generalError": "Error",
+  "ok": "OK",
+  "confirm": "Confirm",
+  "signOut": "Sign Out",
+  "signOutConfirmation": "Are you sure you want to sign out?",
+  "cancel": "Cancel"
+}

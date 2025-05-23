@@ -1,0 +1,20 @@
+{
+  "hello": "مرحبا",
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "errorLoadingBranches": "حدث خطأ اثناء المحاولة",
+  "chooseBranch": "الرجاء اختيار الفرع",
+  "back": "رجوع",
+  "signIn": "تسجيل الدخول",
+  "empNum": "رقم الموظف",
+  "enterEmpNum": "ادخل رقم الموظف",
+  "password": "كلمة المرور",
+  "enterPassword": "ادخل كلمة المرور",
+  "errorLogin": "عملية دخول فاشلة",
+  "generalError": "خطأ",
+  "ok": "حسنا",
+  "confirm": "تأكيد",
+  "signOut": "تسجيل الخروج", 
+  "signOutConfirmation": "هل انت متأكد؟",
+  "cancel": "الغاء"
+}
