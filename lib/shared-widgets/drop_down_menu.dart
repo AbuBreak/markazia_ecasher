@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:markazia_ecasher/models/branch_model.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:provider/provider.dart';
 
 class CustomDropDown extends StatefulWidget {
-  final String? initialValue;
-  final ValueChanged<String> onChanged;
+  final SelectedBranch? initialValue;
+  final ValueChanged<SelectedBranch> onChanged;
 
   const CustomDropDown({super.key, this.initialValue, required this.onChanged});
 
@@ -21,8 +22,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue ?? '');
-
+    _controller = TextEditingController(
+      text:
+          widget.initialValue != null
+              ? '${widget.initialValue!.branchName} (${widget.initialValue!.serviceName})'
+              : '',
+    );
     _focusNode.addListener(_handleFocusChange);
   }
 
@@ -87,11 +92,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
                               : filtered.map((option) {
                                 return ListTile(
                                   title: Text(
-                                    option,
+                                    '${option.branchName} (${option.serviceName})',
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   onTap: () {
-                                    _controller.text = option;
+                                    _controller.text =
+                                        '${option.branchName} (${option.serviceName})';
                                     widget.onChanged(option);
                                     Provider.of<BranchProvider>(
                                       context,
@@ -123,7 +129,6 @@ class _CustomDropDownState extends State<CustomDropDown> {
   void _onChanged(String value) {
     final provider = Provider.of<BranchProvider>(context, listen: false);
     provider.filterOptions(value);
-    widget.onChanged(value);
 
     if (!_isDropdownOpen && _focusNode.hasFocus) {
       _showDropdown();
@@ -143,7 +148,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
+          color: Colors.black.withValues(),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.white, width: 1),
         ),

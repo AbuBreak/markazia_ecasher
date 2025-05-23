@@ -64,7 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.all(width * 0.04),
                           child: CustomTextField(
                             title: AppLocalizations.of(context)!.password,
-                            hintText: AppLocalizations.of(context)!.enterPassword,
+                            hintText:
+                                AppLocalizations.of(context)!.enterPassword,
                             obscureText: true,
                             errorText: loginProvider.passwordError,
                             onChanged: loginProvider.setPassword,
@@ -135,8 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (loginProvider.isAuthenticated) {
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder:
-                                            (context) => const ServicePage(),
+                                        builder: (context) => ServicePage(),
                                       ),
                                     );
                                     loginProvider.clearData();
@@ -151,15 +151,19 @@ class _LoginPageState extends State<LoginPage> {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                             ),
-                                            title:  Text(
-                                              AppLocalizations.of(context)!.errorLogin,
+                                            title: Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.errorLogin,
                                               style: TextStyle(
                                                 color: Colors.white,
                                               ),
                                             ),
                                             content: Text(
                                               loginProvider.errorTitle ??
-                                                  AppLocalizations.of(context)!.generalError,
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.generalError,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -171,8 +175,10 @@ class _LoginPageState extends State<LoginPage> {
                                                         Navigator.of(
                                                           context,
                                                         ).pop(),
-                                                child:  Text(
-                                                  AppLocalizations.of(context)!.ok,
+                                                child: Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.ok,
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                   ),

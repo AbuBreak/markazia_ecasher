@@ -7,7 +7,7 @@ import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/providers/service_provider.dart';
 import 'package:markazia_ecasher/screens/branch_page.dart';
-import 'package:markazia_ecasher/shared-widgets/app_drawer.dart';
+import 'package:markazia_ecasher/screens/branch_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,7 +30,6 @@ class _ServicePageState extends State<ServicePage> {
     final height = media.size.height;
 
     return Scaffold(
-      endDrawer: CustomDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -72,7 +71,28 @@ class _ServicePageState extends State<ServicePage> {
                           onTap: () async {
                             switch (item['id']) {
                               case '1':
-                                serviceProvider.getBranchServices();
+                                final selectedBranch =
+                                    Provider.of<BranchProvider>(
+                                      context,
+                                      listen: false,
+                                    ).selectedBranch;
+                                final branchId =
+                                    selectedBranch?.id?.toString() ?? '';
+                                final accessToken =
+                                    Provider.of<LoginProvider>(
+                                      context,
+                                      listen: false,
+                                    ).accessToken;
+                                serviceProvider.getBranchServices(
+                                  branchId,
+                                  accessToken!,
+                                );
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => const BranchSettingsPage(),
+                                  ),
+                                );
                                 break;
                               case '2':
                                 Navigator.of(context).push(

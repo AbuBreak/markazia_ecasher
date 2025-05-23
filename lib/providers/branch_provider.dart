@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:markazia_ecasher/api/api_service.dart';
+import 'package:markazia_ecasher/models/branch_model.dart';
 import 'package:markazia_ecasher/models/get_branches.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -8,13 +9,13 @@ class BranchProvider with ChangeNotifier {
   final ApiService apiService = ApiService();
 
   List<Data> branches = [];
-  List<String> filteredOptions = [];
+  List<SelectedBranch> filteredOptions = [];
   bool isLoading = false;
   String? error;
-  String? selectedBranch;
+  SelectedBranch? selectedBranch;
   bool hasChanged = false;
 
-  final List<String> _allFormattedOptions = [];
+  final List<SelectedBranch> _allFormattedOptions = [];
 
   Future<void> loadBranches() async {
     isLoading = true;
@@ -30,12 +31,18 @@ class BranchProvider with ChangeNotifier {
         for (var branch in branches) {
           final branchName = branch.branchNameEn ?? '';
           final services = branch.services ?? [];
+          final branchId = branch.id;
 
           for (var service in services) {
             final serviceName = service.nameEn ?? '';
-            final formatted = '$branchName ($serviceName)';
-
-            _allFormattedOptions.add(formatted);
+            _allFormattedOptions.add(
+              SelectedBranch(
+                id: branchId,
+                branchName: branchName,
+                serviceName: serviceName,
+                services: services,
+              ),
+            );
           }
         }
 
@@ -72,10 +79,18 @@ class BranchProvider with ChangeNotifier {
       for (var branch in branches) {
         final branchName = branch.branchNameEn ?? '';
         final services = branch.services ?? [];
+        final branchId = branch.id;
+
         for (var service in services) {
           final serviceName = service.nameEn ?? '';
-          final formatted = '$branchName ($serviceName)';
-          _allFormattedOptions.add(formatted);
+          _allFormattedOptions.add(
+            SelectedBranch(
+              id: branchId,
+              branchName: branchName,
+              serviceName: serviceName,
+              services: services,
+            ),
+          );
         }
       }
       filteredOptions = List.from(_allFormattedOptions);
@@ -85,19 +100,28 @@ class BranchProvider with ChangeNotifier {
 
   void filterOptions(String input) {
     filteredOptions =
-        _allFormattedOptions
+        selectedBranchOptions
             .where(
-              (option) => option.toLowerCase().contains(input.toLowerCase()),
+              (option) =>
+                  option.branchName!.toLowerCase().contains(
+                    input.toLowerCase(),
+                  ) ||
+                  option.serviceName!.toLowerCase().contains(
+                    input.toLowerCase(),
+                  ),
             )
             .toList();
     notifyListeners();
   }
 
-  void setSelectedBranch(String? branch) {
+  void setSelectedBranch(SelectedBranch? branch) {
     selectedBranch = branch;
     hasChanged = true;
     notifyListeners();
   }
+
+  List<SelectedBranch> get selectedBranchOptions =>
+      List.from(_allFormattedOptions);
 
   void clearData() {
     branches = [];

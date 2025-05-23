@@ -24,7 +24,6 @@ class _BranchPageState extends State<BranchPage> {
 
       final provider = Provider.of<BranchProvider>(context, listen: false);
       await provider.loadBranchesFromPrefs();
-      ;
     });
   }
 
@@ -86,7 +85,7 @@ class _BranchPageState extends State<BranchPage> {
                         ),
                         SizedBox(height: height * 0.04),
                         CustomDropDown(
-                          initialValue: provider.selectedBranch ?? '',
+                          initialValue: provider.selectedBranch,
                           onChanged: (branch) {
                             provider.setSelectedBranch(branch);
                           },
