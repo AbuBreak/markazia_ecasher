@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:markazia_ecasher/api/api_service.dart';
-import 'package:markazia_ecasher/models/get_services.dart';
+import 'package:markazia_ecasher/core/errors/failure.dart';
+import 'package:markazia_ecasher/data/datasources/remote/api_service.dart';
+import 'package:markazia_ecasher/data/models/get_services.dart';
 
 class ServiceProvider extends ChangeNotifier {
-
   bool isLoading = false;
-  bool isToggled = false;
   String? error;
   final Map<int, bool> toggledIndices = {};
 
@@ -27,25 +26,25 @@ class ServiceProvider extends ChangeNotifier {
     debugPrint('getBranchServices called with accessToken: $accessToken');
     isLoading = true;
     notifyListeners();
-    try {
-      final response = await apiService.getServices(branchId, accessToken);
 
-      if (response.success == true) {
-        if (response.data != null) {
-          services = response.data!.services ?? [];
-          toggledIndices.clear();
-          for (int i = 0; i < services.length; i++) {
-            toggledIndices[i] = services[i].isEnabled ?? false;
-          }
+    final result = await apiService.getServices(branchId, accessToken);
+
+    result.fold(
+      (Failure failure) {
+        error = failure.message;
+        services = [];
+        toggledIndices.clear();
+        debugPrint('getBranchServices error: $error');
+      },
+      (GetServices response) {
+        services = response.data?.services ?? [];
+        toggledIndices.clear();
+        for (int i = 0; i < services.length; i++) {
+          toggledIndices[i] = services[i].isEnabled ?? false;
         }
-      } else {
-        error = response.message;
-        debugPrint('getBranchServices API error: ${response.message}');
-      }
-    } catch (e) {
-      isLoading = false;
-      debugPrint('getBranchServices API catch error: $e');
-    }
+        error = null;
+      },
+    );
 
     isLoading = false;
     notifyListeners();
@@ -58,11 +57,23 @@ class ServiceProvider extends ChangeNotifier {
     for (int i = 0; i < services.length; i++) {
       final service = services[i];
       final isEnabled = toggledIndices[i] ?? false;
-      await apiService.updateServiceStatus(
+
+      final result = await apiService.updateServiceStatus(
         branchId: branchId,
         serviceId: service.serviceId ?? 0,
         isEnabled: isEnabled,
         accessToken: accessToken,
+      );
+
+      result.fold(
+        (Failure failure) {
+          debugPrint(
+            'Failed to update service ${service.serviceId}: ${failure.message}',
+          );
+        },
+        (_) {
+          debugPrint('Service ${service.serviceId} updated successfully.');
+        },
       );
     }
   }
