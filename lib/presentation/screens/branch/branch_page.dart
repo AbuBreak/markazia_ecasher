@@ -98,47 +98,33 @@ class _BranchPageState extends State<BranchPage> {
                   }
 
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(height: height * 0.04),
-                      Image.asset(
-                        CusotmAssets.logoAssets[4],
-                        width: width * 0.35,
-                        height: height * 0.15,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(height: height * 0.04),
+                              Image.asset(
+                                CusotmAssets.logoAssets[4],
+                                width: width * 0.35,
+                                height: height * 0.15,
+                              ),
+                              SizedBox(height: height * 0.04),
+                              content,
+                            ],
+                          ),
+                        ),
                       ),
-                      const Spacer(),
-                      content,
-                      provider.hasChanged
-                          ? Padding(
-                            padding: EdgeInsets.only(top: height * 0.4),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                if (isLoggedIn)
-                                  OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: height * 0.018,
-                                        horizontal: width * 0.06,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      context.go('/service');
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context).back,
-                                      style: GoogleFonts.encodeSans(
-                                        fontSize: width * 0.045,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-
-                                SizedBox(width: width * 0.04),
+                      if (provider.hasChanged)
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: height * 0.04,
+                            top: height * 0.02,
+                          ),
+                          child: Row(
+                            children: [
+                              if (isLoggedIn)
                                 OutlinedButton(
                                   style: OutlinedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
@@ -150,25 +136,45 @@ class _BranchPageState extends State<BranchPage> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    if (isLoggedIn) {
-                                      context.go('/service');
-                                    } else {
-                                      context.go('/language');
-                                    }
+                                    context.go('/service');
                                   },
                                   child: Text(
-                                    AppLocalizations.of(context).signIn,
+                                    AppLocalizations.of(context).back,
                                     style: GoogleFonts.encodeSans(
                                       fontSize: width * 0.045,
                                       color: Colors.white,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          )
-                          : const SizedBox(),
-                      const Spacer(),
+                              Spacer(),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: height * 0.018,
+                                    horizontal: width * 0.06,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (isLoggedIn) {
+                                    context.go('/service');
+                                  } else {
+                                    context.go('/language');
+                                  }
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context).signIn,
+                                  style: GoogleFonts.encodeSans(
+                                    fontSize: width * 0.045,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                     ],
                   );
                 },
