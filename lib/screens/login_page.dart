@@ -1,11 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/screens/language_page.dart';
-import 'package:markazia_ecasher/screens/service_page.dart';
 import 'package:markazia_ecasher/shared-widgets/text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -90,19 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 onPressed:
                                     () => {
-                                      if (Navigator.of(context).canPop())
-                                        {Navigator.of(context).pop()}
-                                      else
-                                        {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                      const LanguagePage(),
-                                            ),
-                                          ),
-                                          loginProvider.clearData(),
-                                        },
+                                      context.go('/language'),
+                                      loginProvider.clearData(),
                                     },
                                 child: Text(
                                   AppLocalizations.of(context).back,
@@ -135,11 +123,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                   if (!mounted) return;
                                   if (loginProvider.isAuthenticated) {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => ServicePage(),
-                                      ),
-                                    );
+                                    context.go('/service');
                                     loginProvider.clearData();
                                   } else {
                                     loginProvider.clearData();
@@ -172,10 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                                             actions: [
                                               TextButton(
                                                 onPressed:
-                                                    () =>
-                                                        Navigator.of(
-                                                          context,
-                                                        ).pop(),
+                                                    () => context.pop(true),
                                                 child: Text(
                                                   AppLocalizations.of(
                                                     context,

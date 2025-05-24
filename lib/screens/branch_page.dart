@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/screens/language_page.dart';
-import 'package:markazia_ecasher/screens/service_page.dart';
 import 'package:markazia_ecasher/shared-widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -128,12 +127,7 @@ class _BranchPageState extends State<BranchPage> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder:
-                                              (context) => const ServicePage(),
-                                        ),
-                                      );
+                                      context.go('/service');
                                     },
                                     child: Text(
                                       AppLocalizations.of(context).back,
@@ -157,17 +151,9 @@ class _BranchPageState extends State<BranchPage> {
                                   ),
                                   onPressed: () {
                                     if (isLoggedIn) {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) => ServicePage(),
-                                        ),
-                                      );
+                                      context.go('/service');
                                     } else {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) => LanguagePage(),
-                                        ),
-                                      );
+                                      context.go('/language');
                                     }
                                   },
                                   child: Text(

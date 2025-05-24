@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/models/languuage_enum.dart';
@@ -8,7 +9,6 @@ import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/providers/service_provider.dart';
-import 'package:markazia_ecasher/screens/service_page.dart';
 import 'package:markazia_ecasher/shared-widgets/custom_list_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -108,11 +108,7 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                             context,
                             listen: false,
                           ).clearToggles();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const ServicePage(),
-                            ),
-                          );
+                          context.go('/service');
                         },
                         child: Text(
                           AppLocalizations.of(context).back,
@@ -152,11 +148,7 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                             ).updateAllServiceStatuses(branchId, accessToken!);
 
                             if (!mounted) return;
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const ServicePage(),
-                              ),
-                            );
+                            context.go('/service');
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
