@@ -1,5 +1,5 @@
 {
-  "hello": "Hello",
+  "appName" : "Markazia eCasher",
   "login": "Login",
   "logout": "Logout",
   "errorLoadingBranches": "Failed to load branches",
@@ -16,5 +16,15 @@
   "confirm": "Confirm",
   "signOut": "Sign Out",
   "signOutConfirmation": "Are you sure you want to sign out?",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "noResultFound": "No results found",
+  "chooseBranchHint": "Choose Branch",
+  "versionNum": "Version 24.08.1",
+  "checkForUpdate": "Check for updates",
+  "kioskSettings": "Kiosk Settings",
+  "updateFailed": "Failed to update services",
+  "chooseLanguage": "Please choose the language",
+  "language": "English",
+  "serviceControl": "Service Control",
+  "branchSelection": "Branch Selection"
 }

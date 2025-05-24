@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/screens/login_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -34,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   Center(
                     child: Image.asset(
-                      'assets/app-logo.png',
+                      CusotmAssets.logoAssets[4],
                       width: 90,
                       height: 80,
                     ),
@@ -44,13 +46,13 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Image.asset(
-                'assets/settings.png',
+                CusotmAssets.logoAssets[5],
                 width: 32,
                 height: 32,
                 color: Colors.white,
               ),
               title: Text(
-                'Kiosk Settings',
+                AppLocalizations.of(context).kioskSettings,
                 style: GoogleFonts.encodeSans(
                   fontSize: 16,
                   color: Colors.white,
@@ -68,7 +70,7 @@ class CustomDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Check for updates',
+                    AppLocalizations.of(context).checkForUpdate,
                     style: GoogleFonts.encodeSans(
                       fontSize: 14,
                       color: Colors.white,
@@ -78,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Version 24.08.1',
+                    AppLocalizations.of(context).versionNum,
                     style: GoogleFonts.encodeSans(
                       fontSize: 14,
                       color: Colors.grey,

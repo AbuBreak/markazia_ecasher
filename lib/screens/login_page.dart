@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/screens/language_page.dart';
 import 'package:markazia_ecasher/screens/service_page.dart';
@@ -29,9 +30,9 @@ class _LoginPageState extends State<LoginPage> {
       canPop: true,
       child: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/app-background.gif'),
+              image: AssetImage(CusotmAssets.logoAssets[6]),
               fit: BoxFit.cover,
             ),
           ),
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/app-logo.png',
+                          CusotmAssets.logoAssets[4],
                           width: width * 0.3,
                           height: height * 0.2,
                         ),
@@ -53,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: EdgeInsets.all(width * 0.04),
                           child: CustomTextField(
-                            title: AppLocalizations.of(context)!.empNum,
-                            hintText: AppLocalizations.of(context)!.enterEmpNum,
+                            title: AppLocalizations.of(context).empNum,
+                            hintText: AppLocalizations.of(context).enterEmpNum,
                             errorText: loginProvider.employeeError,
                             onChanged: loginProvider.setEmployeeNumber,
                           ),
@@ -63,9 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: EdgeInsets.all(width * 0.04),
                           child: CustomTextField(
-                            title: AppLocalizations.of(context)!.password,
+                            title: AppLocalizations.of(context).password,
                             hintText:
-                                AppLocalizations.of(context)!.enterPassword,
+                                AppLocalizations.of(context).enterPassword,
                             obscureText: true,
                             errorText: loginProvider.passwordError,
                             onChanged: loginProvider.setPassword,
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                         },
                                     },
                                 child: Text(
-                                  AppLocalizations.of(context)!.back,
+                                  AppLocalizations.of(context).back,
                                   style: GoogleFonts.encodeSans(
                                     fontSize: 16,
                                     color: Colors.white,
@@ -154,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                             title: Text(
                                               AppLocalizations.of(
                                                 context,
-                                              )!.errorLogin,
+                                              ).errorLogin,
                                               style: TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -163,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                               loginProvider.errorTitle ??
                                                   AppLocalizations.of(
                                                     context,
-                                                  )!.generalError,
+                                                  ).generalError,
                                               style: const TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -178,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 child: Text(
                                                   AppLocalizations.of(
                                                     context,
-                                                  )!.ok,
+                                                  ).ok,
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                   ),
@@ -190,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                                   }
                                 },
                                 child: Text(
-                                  AppLocalizations.of(context)!.confirm,
+                                  AppLocalizations.of(context).confirm,
                                   style: GoogleFonts.encodeSans(
                                     fontSize: width * 0.045,
                                     color: Colors.white,
