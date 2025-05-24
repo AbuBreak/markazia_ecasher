@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:markazia_ecasher/screens/branch_page.dart';
 import 'package:markazia_ecasher/shared-widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -140,18 +140,10 @@ class _LanguagePageState extends State<LanguagePage> {
                                 ),
                                 onPressed:
                                     () => {
-                                      if (Navigator.of(context).canPop())
-                                        {Navigator.of(context).pop()}
+                                      if (context.canPop())
+                                        {context.pop(true)}
                                       else
-                                        {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                      const BranchPage(),
-                                            ),
-                                          ),
-                                        },
+                                        {context.go('/')},
                                     },
                                 child: Text(
                                   AppLocalizations.of(context).back,

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/models/menu_option.dart';
@@ -8,8 +9,6 @@ import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/providers/service_provider.dart';
-import 'package:markazia_ecasher/screens/branch_page.dart';
-import 'package:markazia_ecasher/screens/branch_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -89,19 +88,11 @@ class _ServicePageState extends State<ServicePage> {
                                   branchId,
                                   accessToken!,
                                 );
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => const BranchSettingsPage(),
-                                  ),
-                                );
+                                context.go('/branchSettings');
+
                                 break;
                               case '2':
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const BranchPage(),
-                                  ),
-                                );
+                                context.go('/branch');
                                 break;
                               case '3':
                                 final shouldSignOut = await signOut(context);
@@ -124,12 +115,7 @@ class _ServicePageState extends State<ServicePage> {
                                     context,
                                     listen: false,
                                   ).clearData();
-
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => const BranchPage(),
-                                    ),
-                                  );
+                                  context.go('/');
                                 }
                                 break;
                             }
@@ -153,11 +139,7 @@ class _ServicePageState extends State<ServicePage> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const BranchPage(),
-                            ),
-                          );
+                          context.go('/branch');
                         },
                         child: Text(
                           AppLocalizations.of(context).back,
@@ -197,14 +179,14 @@ class _ServicePageState extends State<ServicePage> {
             ),
             actions: [
               TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
+                onPressed: () => context.pop(false),
                 child: Text(
                   AppLocalizations.of(context).cancel,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () => context.pop(true),
                 child: Text(
                   AppLocalizations.of(context).signOut,
                   style: TextStyle(color: Colors.redAccent),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:markazia_ecasher/screens/branch_page.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,9 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const BranchPage()),
-      );
+      context.go('/');
     }
   }
 
