@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
+import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/screens/language_page.dart';
 import 'package:markazia_ecasher/screens/service_page.dart';
@@ -23,7 +25,9 @@ class _BranchPageState extends State<BranchPage> {
       if (!mounted) return;
 
       final provider = Provider.of<BranchProvider>(context, listen: false);
-      await provider.loadBranchesFromPrefs();
+      final selectedLang =
+          Provider.of<LanguageProvider>(context, listen: false).currentLocale;
+      await provider.loadBranchesFromPrefs(selectedLang.languageCode);
     });
   }
 
@@ -38,9 +42,9 @@ class _BranchPageState extends State<BranchPage> {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/app-background.gif'),
+            image: AssetImage(CusotmAssets.logoAssets[6]),
             fit: BoxFit.cover,
           ),
         ),
@@ -62,7 +66,7 @@ class _BranchPageState extends State<BranchPage> {
                         const Icon(Icons.error, color: Colors.red, size: 40),
                         const SizedBox(height: 10),
                         Text(
-                          AppLocalizations.of(context)!.errorLoadingBranches,
+                          AppLocalizations.of(context).errorLoadingBranches,
                           style: GoogleFonts.encodeSans(
                             color: Colors.redAccent,
                             fontSize: width * 0.045,
@@ -75,7 +79,7 @@ class _BranchPageState extends State<BranchPage> {
                     content = Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.chooseBranch,
+                          AppLocalizations.of(context).chooseBranch,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.encodeSans(
                             fontWeight: FontWeight.w500,
@@ -100,7 +104,7 @@ class _BranchPageState extends State<BranchPage> {
                     children: [
                       SizedBox(height: height * 0.04),
                       Image.asset(
-                        'assets/app-logo.png',
+                        CusotmAssets.logoAssets[4],
                         width: width * 0.35,
                         height: height * 0.15,
                       ),
@@ -132,7 +136,7 @@ class _BranchPageState extends State<BranchPage> {
                                       );
                                     },
                                     child: Text(
-                                      AppLocalizations.of(context)!.back,
+                                      AppLocalizations.of(context).back,
                                       style: GoogleFonts.encodeSans(
                                         fontSize: width * 0.045,
                                         color: Colors.white,
@@ -167,7 +171,7 @@ class _BranchPageState extends State<BranchPage> {
                                     }
                                   },
                                   child: Text(
-                                    AppLocalizations.of(context)!.signIn,
+                                    AppLocalizations.of(context).signIn,
                                     style: GoogleFonts.encodeSans(
                                       fontSize: width * 0.045,
                                       color: Colors.white,

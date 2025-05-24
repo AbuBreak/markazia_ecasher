@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
+import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/screens/branch_page.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _initialize() async {
     var provider = Provider.of<BranchProvider>(context, listen: false);
-    await provider.loadBranches();
+    final selectedLang =
+        Provider.of<LanguageProvider>(context, listen: false).currentLocale;
+    await provider.loadBranches(selectedLang.languageCode);
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -38,10 +42,14 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/app-background.gif', fit: BoxFit.cover),
-          Container(color: Colors.black.withValues(),),
+          Image.asset(CusotmAssets.logoAssets[6], fit: BoxFit.cover),
+          Container(color: Colors.black.withValues()),
           Center(
-            child: Image.asset('assets/app-logo.png', width: 180, height: 180),
+            child: Image.asset(
+              CusotmAssets.logoAssets[4],
+              width: 180,
+              height: 180,
+            ),
           ),
         ],
       ),

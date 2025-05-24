@@ -1,5 +1,5 @@
 {
-  "hello": "مرحبا",
+  "appName" : "كاشير ماركازيا الإلكتروني",
   "login": "تسجيل الدخول",
   "logout": "تسجيل الخروج",
   "errorLoadingBranches": "حدث خطأ اثناء المحاولة",
@@ -16,5 +16,15 @@
   "confirm": "تأكيد",
   "signOut": "تسجيل الخروج", 
   "signOutConfirmation": "هل انت متأكد؟",
-  "cancel": "الغاء"
+  "cancel": "الغاء",
+  "noResultFound": "لم يتم ايجاد نتيجة",
+  "chooseBranchHint": "اختر الفرع",
+  "versionNum": "الإصدار 24.08.1",
+  "checkForUpdate": "تحقق من التحديثات",
+  "kioskSettings": "إعدادات جهاز الخدمة الذاتية",
+  "updateFailed": "تعذر تحديث الخدمات",
+  "chooseLanguage": "الرجاء اختيار اللغة",
+  "language": "العربية",
+  "serviceControl": "التحكم في الخدمات",
+  "branchSelection": "اختيار الفرع"
 }

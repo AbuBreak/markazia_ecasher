@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:markazia_ecasher/models/assets.dart';
+import 'package:markazia_ecasher/models/menu_option.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
@@ -31,9 +33,9 @@ class _ServicePageState extends State<ServicePage> {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/app-background.gif'),
+            image: AssetImage(CusotmAssets.logoAssets[6]),
             fit: BoxFit.cover,
           ),
         ),
@@ -45,7 +47,7 @@ class _ServicePageState extends State<ServicePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
-                    'assets/app-logo.png',
+                    CusotmAssets.logoAssets[4],
                     width: width * 0.35,
                     height: height * 0.15,
                   ),
@@ -58,7 +60,7 @@ class _ServicePageState extends State<ServicePage> {
                           (context, index) =>
                               Divider(color: Colors.white24, thickness: 1),
                       itemBuilder: (context, index) {
-                        final item = serviceProvider.optionItems[index];
+                        final item = OptionItems.get(context)[index];
                         return ListTile(
                           title: Text(
                             item['title'] as String,
@@ -158,7 +160,7 @@ class _ServicePageState extends State<ServicePage> {
                           );
                         },
                         child: Text(
-                          AppLocalizations.of(context)!.back,
+                          AppLocalizations.of(context).back,
                           style: GoogleFonts.encodeSans(
                             fontSize: 16,
                             color: Colors.white,
@@ -186,25 +188,25 @@ class _ServicePageState extends State<ServicePage> {
               borderRadius: BorderRadius.circular(16),
             ),
             title: Text(
-              AppLocalizations.of(context)!.signOut,
+              AppLocalizations.of(context).signOut,
               style: TextStyle(color: Colors.white),
             ),
             content: Text(
-              AppLocalizations.of(context)!.signOutConfirmation,
+              AppLocalizations.of(context).signOutConfirmation,
               style: TextStyle(color: Colors.white),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text(
-                  AppLocalizations.of(context)!.cancel,
+                  AppLocalizations.of(context).cancel,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: Text(
-                  AppLocalizations.of(context)!.signOut,
+                  AppLocalizations.of(context).signOut,
                   style: TextStyle(color: Colors.redAccent),
                 ),
               ),

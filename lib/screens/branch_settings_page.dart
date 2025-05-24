@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:markazia_ecasher/models/assets.dart';
+import 'package:markazia_ecasher/models/languuage_enum.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
+import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/providers/login_provider.dart';
 import 'package:markazia_ecasher/providers/service_provider.dart';
 import 'package:markazia_ecasher/screens/service_page.dart';
@@ -21,15 +22,17 @@ class BranchSettingsPage extends StatefulWidget {
 class _BranchSettingsPageState extends State<BranchSettingsPage> {
   @override
   Widget build(BuildContext context) {
+    final selectedLang =
+        Provider.of<LanguageProvider>(context, listen: false).currentLocale;
     final media = MediaQuery.of(context);
     final width = media.size.width;
     final height = media.size.height;
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/app-background.gif'),
+            image: AssetImage(CusotmAssets.logoAssets[6]),
             fit: BoxFit.cover,
           ),
         ),
@@ -41,7 +44,7 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
-                    'assets/app-logo.png',
+                    CusotmAssets.logoAssets[4],
                     width: width * 0.35,
                     height: height * 0.15,
                   ),
@@ -60,19 +63,25 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                                     CusotmAssets.logoAssets.length];
                             return ServiceListTile(
                               title:
-                                  serviceProvider
-                                      .services[index]
-                                      .serviceNameEn ??
-                                  '',
+                                  selectedLang.languageCode ==
+                                          LanguageEnumHelper.getLanguageName(
+                                            LanguageEnum.english,
+                                          )
+                                      ? serviceProvider
+                                              .services[index]
+                                              .serviceNameEn ??
+                                          ''
+                                      : serviceProvider
+                                              .services[index]
+                                              .serviceNameAr ??
+                                          '',
+
                               logoAssetPath: logoAssetPath,
                               value:
                                   serviceProvider.toggledIndices[index] ??
                                   false,
                               onChanged: (val) {
                                 serviceProvider.toggleService(index, val);
-                                debugPrint(
-                                  'Service toggledIndices: ${serviceProvider.toggledIndices}',
-                                );
                               },
                             );
                           },
@@ -95,7 +104,6 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                           ),
                         ),
                         onPressed: () {
-                          // Only clear toggles, do not update backend
                           Provider.of<ServiceProvider>(
                             context,
                             listen: false,
@@ -107,7 +115,7 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                           );
                         },
                         child: Text(
-                          AppLocalizations.of(context)!.back,
+                          AppLocalizations.of(context).back,
                           style: GoogleFonts.encodeSans(
                             fontSize: 16,
                             color: Colors.white,
@@ -152,13 +160,19 @@ class _BranchSettingsPageState extends State<BranchSettingsPage> {
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Failed to update services'),
+                                content: Text(
+                                  AppLocalizations.of(context).updateFailed,
+                                  style: GoogleFonts.encodeSans(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             );
                           }
                         },
                         child: Text(
-                          AppLocalizations.of(context)!.confirm,
+                          AppLocalizations.of(context).confirm,
                           style: GoogleFonts.encodeSans(
                             fontSize: 16,
                             color: Colors.white,

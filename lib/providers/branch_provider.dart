@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:markazia_ecasher/api/api_service.dart';
 import 'package:markazia_ecasher/models/branch_model.dart';
 import 'package:markazia_ecasher/models/get_branches.dart';
+import 'package:markazia_ecasher/models/languuage_enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -17,7 +18,7 @@ class BranchProvider with ChangeNotifier {
 
   final List<SelectedBranch> _allFormattedOptions = [];
 
-  Future<void> loadBranches() async {
+  Future<void> loadBranches(String lang) async {
     isLoading = true;
     notifyListeners();
 
@@ -29,12 +30,18 @@ class BranchProvider with ChangeNotifier {
         _allFormattedOptions.clear();
 
         for (var branch in branches) {
-          final branchName = branch.branchNameEn ?? '';
+          final branchName =
+              lang == LanguageEnumHelper.getLanguageName(LanguageEnum.english)
+                  ? branch.branchNameEn
+                  : branch.branchNameAr;
           final services = branch.services ?? [];
           final branchId = branch.id;
 
           for (var service in services) {
-            final serviceName = service.nameEn ?? '';
+            final serviceName =
+                lang == LanguageEnumHelper.getLanguageName(LanguageEnum.english)
+                    ? service.nameEn
+                    : service.nameAr;
             _allFormattedOptions.add(
               SelectedBranch(
                 id: branchId,
@@ -69,7 +76,7 @@ class BranchProvider with ChangeNotifier {
     await prefs.setString('cached_branches', jsonEncode(branchList));
   }
 
-  Future<void> loadBranchesFromPrefs() async {
+  Future<void> loadBranchesFromPrefs(String lang) async {
     final prefs = await SharedPreferences.getInstance();
     final String? cached = prefs.getString('cached_branches');
     if (cached != null) {
@@ -77,12 +84,18 @@ class BranchProvider with ChangeNotifier {
       branches = decoded.map((e) => Data.fromJson(e)).toList();
       _allFormattedOptions.clear();
       for (var branch in branches) {
-        final branchName = branch.branchNameEn ?? '';
+        final branchName =
+            lang == LanguageEnumHelper.getLanguageName(LanguageEnum.english)
+                ? branch.branchNameEn
+                : branch.branchNameAr;
         final services = branch.services ?? [];
         final branchId = branch.id;
 
         for (var service in services) {
-          final serviceName = service.nameEn ?? '';
+          final serviceName =
+              lang == LanguageEnumHelper.getLanguageName(LanguageEnum.english)
+                  ? service.nameEn
+                  : service.nameAr;
           _allFormattedOptions.add(
             SelectedBranch(
               id: branchId,

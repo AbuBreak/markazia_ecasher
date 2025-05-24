@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:markazia_ecasher/models/branch_model.dart';
 import 'package:markazia_ecasher/providers/branch_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CustomDropDown extends StatefulWidget {
   final SelectedBranch? initialValue;
@@ -81,11 +83,11 @@ class _CustomDropDownState extends State<CustomDropDown> {
                       shrinkWrap: true,
                       children:
                           filtered.isEmpty
-                              ? const [
+                              ? [
                                 ListTile(
                                   title: Text(
-                                    'No results found',
-                                    style: TextStyle(color: Colors.white70),
+                                    AppLocalizations.of(context).noResultFound,
+                                    style: const TextStyle(color: Colors.white70),
                                   ),
                                 ),
                               ]
@@ -160,9 +162,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                 focusNode: _focusNode,
                 style: const TextStyle(color: Colors.white, fontSize: 18),
                 cursorColor: Colors.white,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Choose Branch',
+                  hintText: AppLocalizations.of(context).chooseBranchHint,
                   hintStyle: TextStyle(color: Colors.white70),
                 ),
                 onChanged: _onChanged,

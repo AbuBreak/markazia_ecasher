@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:markazia_ecasher/models/assets.dart';
 import 'package:markazia_ecasher/providers/language_provider.dart';
 import 'package:markazia_ecasher/screens/branch_page.dart';
 import 'package:markazia_ecasher/shared-widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:markazia_ecasher/models/languuage_enum.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -27,9 +29,9 @@ class _LanguagePageState extends State<LanguagePage> {
       child: Scaffold(
         endDrawer: CustomDrawer(),
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/app-background.gif'),
+              image: AssetImage(CusotmAssets.logoAssets[6]),
               fit: BoxFit.cover,
             ),
           ),
@@ -43,11 +45,12 @@ class _LanguagePageState extends State<LanguagePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/app-logo.png',
+                          CusotmAssets.logoAssets[4],
                           width: 120,
                           height: 180,
                         ),
                         const Spacer(),
+                        //TODO: add sharedText
                         Text(
                           'Please choose the language',
                           style: GoogleFonts.encodeSans(
@@ -76,8 +79,13 @@ class _LanguagePageState extends State<LanguagePage> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              onPressed: () async=> {
-                                await langProvider.setLanguage('en')},
+                              onPressed: () async {
+                                await langProvider.setLanguage(
+                                  LanguageEnumHelper.getLanguageName(
+                                    LanguageEnum.english,
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'English',
                                 style: GoogleFonts.encodeSans(
@@ -97,10 +105,13 @@ class _LanguagePageState extends State<LanguagePage> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              onPressed:
-                                  () async => {
-                                    await langProvider.setLanguage('ar'),
-                                  },
+                              onPressed: () async {
+                                await langProvider.setLanguage(
+                                  LanguageEnumHelper.getLanguageName(
+                                    LanguageEnum.arabic,
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'العربية',
                                 style: GoogleFonts.encodeSans(
@@ -143,7 +154,7 @@ class _LanguagePageState extends State<LanguagePage> {
                                         },
                                     },
                                 child: Text(
-                                  AppLocalizations.of(context)!.back,
+                                  AppLocalizations.of(context).back,
                                   style: GoogleFonts.encodeSans(
                                     fontSize: 16,
                                     color: Colors.white,

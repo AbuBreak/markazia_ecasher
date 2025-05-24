@@ -3,11 +3,7 @@ import 'package:markazia_ecasher/api/api_service.dart';
 import 'package:markazia_ecasher/models/get_services.dart';
 
 class ServiceProvider extends ChangeNotifier {
-  final optionItems = [
-    {'id': '1', 'title': 'Service Control'},
-    {'id': '2', 'title': 'Branch Selection'},
-    {'id': '3', 'title': 'Sign Out'},
-  ];
+
   bool isLoading = false;
   bool isToggled = false;
   String? error;
@@ -35,8 +31,6 @@ class ServiceProvider extends ChangeNotifier {
       final response = await apiService.getServices(branchId, accessToken);
 
       if (response.success == true) {
-        debugPrint('getBranchServices API response: $response');
-
         if (response.data != null) {
           services = response.data!.services ?? [];
           toggledIndices.clear();
