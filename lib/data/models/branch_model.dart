@@ -1,4 +1,4 @@
-import 'package:markazia_ecasher/models/get_branches.dart';
+import 'package:markazia_ecasher/data/models/get_branches.dart';
 
 class SelectedBranch {
   int? id;

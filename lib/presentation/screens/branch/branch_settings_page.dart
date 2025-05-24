@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:markazia_ecasher/models/assets.dart';
-import 'package:markazia_ecasher/models/languuage_enum.dart';
-import 'package:markazia_ecasher/providers/branch_provider.dart';
-import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/providers/service_provider.dart';
-import 'package:markazia_ecasher/shared-widgets/custom_list_tile.dart';
+import 'package:markazia_ecasher/core/utils/assets.dart';
+import 'package:markazia_ecasher/core/enums/language_enum.dart';
+import 'package:markazia_ecasher/presentation/providers/branch_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/language_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/login_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/service_provider.dart';
+import 'package:markazia_ecasher/presentation/widgets/custom_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class BranchSettingsPage extends StatefulWidget {

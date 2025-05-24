@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:markazia_ecasher/screens/branch_page.dart';
-import 'package:markazia_ecasher/screens/branch_settings_page.dart';
-import 'package:markazia_ecasher/screens/language_page.dart';
-import 'package:markazia_ecasher/screens/login_page.dart';
-import 'package:markazia_ecasher/screens/service_page.dart';
+import 'package:markazia_ecasher/presentation/screens/branch/branch_page.dart';
+import 'package:markazia_ecasher/presentation/screens/branch/branch_settings_page.dart';
+import 'package:markazia_ecasher/presentation/screens/language/language_page.dart';
+import 'package:markazia_ecasher/presentation/screens/login/login_page.dart';
+import 'package:markazia_ecasher/presentation/screens/service/service_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: <RouteBase>[

@@ -41,6 +41,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   go_router: ^15.1.2
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

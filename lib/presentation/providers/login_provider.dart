@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:markazia_ecasher/api/api_service.dart';
+import 'package:markazia_ecasher/data/datasources/remote/api_service.dart';
 
 class LoginProvider extends ChangeNotifier {
   String employeeNumber = '';
@@ -65,23 +65,30 @@ class LoginProvider extends ChangeNotifier {
   Future<void> userLogin(String employeeNum, String employeePass) async {
     isLoading = true;
     notifyListeners();
-    try {
-      final response = await apiService.login(employeeNum, employeePass);
 
-      debugPrint('Login API response: $response');
-      if (response.success == true) {
-        accessToken = response.accessToken;
-        isAuthenticated = true;
-        error = null;
-        errorTitle = null;
-      } else {
-        error = response.status ?? 'Unknown error';
-        errorTitle = response.title ?? 'Unknown error';
-      }
-    } catch (e) {
-      error = e.toString();
-      debugPrint('Error while trying to login: $error');
-    }
+    final result = await apiService.login(employeeNum, employeePass);
+
+    result.fold(
+      (failure) {
+        error = failure.message;
+        errorTitle = 'Login Failed';
+        isAuthenticated = false;
+        debugPrint('Login failed: $error');
+      },
+      (response) {
+        if (response.success == true) {
+          accessToken = response.accessToken;
+          isAuthenticated = true;
+          error = null;
+          errorTitle = null;
+          debugPrint('Login successful. Access token: $accessToken');
+        } else {
+          error = response.status ?? 'Unknown error';
+          errorTitle = response.title ?? 'Login Failed';
+          isAuthenticated = false;
+        }
+      },
+    );
 
     isLoading = false;
     notifyListeners();

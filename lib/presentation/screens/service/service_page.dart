@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:markazia_ecasher/models/assets.dart';
-import 'package:markazia_ecasher/models/menu_option.dart';
-import 'package:markazia_ecasher/providers/branch_provider.dart';
-import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/providers/service_provider.dart';
+import 'package:markazia_ecasher/core/utils/assets.dart';
+import 'package:markazia_ecasher/core/utils/menu_option.dart';
+import 'package:markazia_ecasher/presentation/providers/branch_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/language_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/login_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/service_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,6 +26,8 @@ class _ServicePageState extends State<ServicePage> {
       context,
       listen: false,
     );
+
+    final branchProvider = Provider.of<BranchProvider>(context, listen: false);
     final media = MediaQuery.of(context);
     final width = media.size.width;
     final height = media.size.height;
@@ -73,10 +75,7 @@ class _ServicePageState extends State<ServicePage> {
                             switch (item['id']) {
                               case '1':
                                 final selectedBranch =
-                                    Provider.of<BranchProvider>(
-                                      context,
-                                      listen: false,
-                                    ).selectedBranch;
+                                    branchProvider.selectedBranch;
                                 final branchId =
                                     selectedBranch?.id?.toString() ?? '';
                                 final accessToken =
@@ -107,10 +106,7 @@ class _ServicePageState extends State<ServicePage> {
                                         listen: false,
                                       ).isAuthenticated =
                                       false;
-                                  Provider.of<BranchProvider>(
-                                    context,
-                                    listen: false,
-                                  ).clearData();
+                                  // branchProvider.clearData();
                                   Provider.of<LanguageProvider>(
                                     context,
                                     listen: false,
@@ -161,6 +157,8 @@ class _ServicePageState extends State<ServicePage> {
   }
 
   Future<bool?> signOut(BuildContext context) {
+    final branchProvider = Provider.of<BranchProvider>(context, listen: false);
+    final langProvider = Provider.of<LanguageProvider>(context, listen: false);
     return showDialog<bool>(
       context: context,
       builder:
@@ -186,7 +184,13 @@ class _ServicePageState extends State<ServicePage> {
                 ),
               ),
               TextButton(
-                onPressed: () => context.pop(true),
+                onPressed: () async {
+                  await branchProvider.loadBranchesFromPrefs(
+                    langProvider.defaultLanguage,
+                  );
+                  branchProvider.clearSelection();
+                  context.pop(true);
+                },
                 child: Text(
                   AppLocalizations.of(context).signOut,
                   style: TextStyle(color: Colors.redAccent),

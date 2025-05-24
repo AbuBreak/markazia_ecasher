@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:markazia_ecasher/models/assets.dart';
-import 'package:markazia_ecasher/providers/branch_provider.dart';
-import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:markazia_ecasher/core/utils/assets.dart';
+// import 'package:markazia_ecasher/presentation/providers/branch_provider.dart';
+// import 'package:markazia_ecasher/presentation/providers/language_provider.dart';
+// import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,11 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initialize() async {
-    var provider = Provider.of<BranchProvider>(context, listen: false);
-    final selectedLang =
-        Provider.of<LanguageProvider>(context, listen: false).currentLocale;
-    await provider.loadBranches(selectedLang.languageCode);
-
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {

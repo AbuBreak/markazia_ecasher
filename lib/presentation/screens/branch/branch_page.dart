@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:markazia_ecasher/models/assets.dart';
-import 'package:markazia_ecasher/providers/branch_provider.dart';
-import 'package:markazia_ecasher/providers/language_provider.dart';
-import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/shared-widgets/drop_down_menu.dart';
+import 'package:markazia_ecasher/core/utils/assets.dart';
+import 'package:markazia_ecasher/presentation/providers/branch_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/language_provider.dart';
+import 'package:markazia_ecasher/presentation/providers/login_provider.dart';
+import 'package:markazia_ecasher/presentation/widgets/drop_down_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,13 +20,13 @@ class _BranchPageState extends State<BranchPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
 
       final provider = Provider.of<BranchProvider>(context, listen: false);
       final selectedLang =
           Provider.of<LanguageProvider>(context, listen: false).currentLocale;
-      await provider.loadBranchesFromPrefs(selectedLang.languageCode);
+      await provider.loadBranches(selectedLang.languageCode);
     });
   }
 

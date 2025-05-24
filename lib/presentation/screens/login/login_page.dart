@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:markazia_ecasher/models/assets.dart';
-import 'package:markazia_ecasher/providers/login_provider.dart';
-import 'package:markazia_ecasher/shared-widgets/text_field.dart';
+import 'package:markazia_ecasher/core/utils/assets.dart';
+import 'package:markazia_ecasher/presentation/providers/login_provider.dart';
+import 'package:markazia_ecasher/presentation/widgets/text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
