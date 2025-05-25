@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:markazia_ecasher/core/utils/app_view.dart';
 import 'package:markazia_ecasher/presentation/providers/branch_provider.dart';
 import 'package:markazia_ecasher/presentation/providers/login_provider.dart';
 import 'package:markazia_ecasher/presentation/providers/service_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:markazia_ecasher/presentation/providers/language_provider.dart';
 // import 'package:markazia_ecasher/providers/provider_setup.dart';
-import 'package:markazia_ecasher/presentation/screens/splash/splash_screen.dart';
-import 'package:markazia_ecasher/presentation/routes/app_router.dart';
-
-const List<Locale> supportedLocales = [Locale('en', ''), Locale('ar', '')];
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,29 +30,5 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AppView();
-  }
-}
-
-class AppView extends StatelessWidget {
-  const AppView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = context.watch<LanguageProvider>().currentLocale;
-
-    return MaterialApp.router(
-      supportedLocales: supportedLocales,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      locale: locale,
-      title: 'Markazia E-Casher',
-      debugShowCheckedModeBanner: false,
-      routerConfig: appRouter,
-      builder: (context, child) => child ?? const SplashScreen(),
-    );
   }
 }
